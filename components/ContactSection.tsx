@@ -9,8 +9,8 @@ const contactInfo = [
   {
     icon: FaEnvelope,
     label: "Email",
-    value: "k1sridhar@ucsd.edu",
-    href: "mailto:k1sridhar@ucsd.edu",
+    value: "kavyasridhar2001@gmail.com",
+    href: "mailto:kavyasridhar2001@gmail.com",
   },
   {
     icon: FaMapMarkerAlt,
@@ -38,7 +38,7 @@ export default function ContactSection() {
     e.preventDefault();
     const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
     const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    window.location.href = `mailto:k1sridhar@ucsd.edu?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:kavyasridhar2001@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const handleChange = (
