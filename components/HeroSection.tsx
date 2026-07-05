@@ -6,7 +6,7 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 const socialLinks = [
   { icon: FaGithub, href: "https://github.com/kavyasridhar1501", label: "GitHub" },
   { icon: FaLinkedin, href: "https://linkedin.com/in/kavyasridhar", label: "LinkedIn" },
-  { icon: FaEnvelope, href: "mailto:k1sridhar@ucsd.edu", label: "Email" },
+  { icon: FaEnvelope, href: "mailto:kavyasridhar2001@gmail.com", label: "Email" },
 ];
 
 export default function HeroSection() {
