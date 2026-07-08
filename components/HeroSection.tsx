@@ -56,9 +56,9 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-text-secondary text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Master&apos;s student in Data Science at UC San Diego with expertise in
-          Machine Learning, NLP, and Large Language Models. Building data-driven
-          solutions that make an impact.
+          UCSD Data Science Grad with expertise in Machine Learning, NLP, and
+          Large Language Models. Building data-driven solutions that make an
+          impact.
         </motion.p>
 
         {/* Social Links */}
