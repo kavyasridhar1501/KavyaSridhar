@@ -11,7 +11,7 @@ const skillCategories = [
   },
   {
     title: "ML & AI",
-    skills: ["PyTorch", "LLMs", "RAG", "FAISS", "Adversarial Training", "Prophet", "Isolation Forest"],
+    skills: ["PyTorch", "LLMs", "RAG", "FAISS", "LoRA", "Adversarial Training", "Prophet", "Isolation Forest"],
   },
   {
     title: "Data Engineering",

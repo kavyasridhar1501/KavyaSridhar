@@ -49,7 +49,7 @@ const projects = [
     demo: "https://split-right-ecru.vercel.app",
   },
   {
-    title: "HemsHappen App",
+    title: "Hemorrhoids RAG Chatbot",
     subtitle: "RAG-Based Medical Chatbot",
     description:
       "Developed a RAG-based medical chatbot using FAISS vector search and Claude Sonnet 4 over curated GI clinical guidelines.",
@@ -58,8 +58,8 @@ const projects = [
       "Outperformed baseline by 42%",
       "Submitted to DDW 2025",
     ],
-    technologies: ["Python", "RAG", "FAISS", "Claude API"],
-    github: "#",
+    technologies: ["Python", "RAG", "FAISS", "Claude API", "LoRA"],
+    github: "https://github.com/kavyasridhar1501/hemorrhoids-rag-chatbot",
   },
   {
     title: "LegalInsight",
