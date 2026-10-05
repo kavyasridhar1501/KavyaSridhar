@@ -1,6 +1,6 @@
 "use client";
 
-import { FaGithub, FaLinkedin, FaHeart } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const socialLinks = [
   { icon: FaGithub, href: "https://github.com/kavyasridhar1501", label: "GitHub" },
@@ -8,8 +8,6 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="bg-softGray py-12 px-4">
       <div className="max-w-6xl mx-auto">
@@ -42,13 +40,6 @@ export default function Footer() {
               </a>
             ))}
           </div>
-        </div>
-
-        <div className="border-t border-gray-200 mt-8 pt-8 text-center">
-          <p className="text-text-secondary text-sm flex items-center justify-center gap-1">
-            &copy; {currentYear} Kavya Sridhar. Made with{" "}
-            <FaHeart className="text-red-500 text-xs" /> using Next.js
-          </p>
         </div>
       </div>
     </footer>
