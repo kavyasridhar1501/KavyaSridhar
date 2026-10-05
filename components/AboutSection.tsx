@@ -16,7 +16,7 @@ const experience = [
     year: "2026 - Present",
     title: "Software Engineer",
     company: "Dreamline AI",
-    description: "Cut bid lifetime from 4+ months to 48 hours via configurable TTL and PII masking in Supabase; blocked 100% of premature project closures with a milestone-gated state machine and PostgreSQL schema migration",
+    description: "Cut bid lifetime from 4+ months to 48 hours via configurable TTL and PII masking in Supabase; blocked 100% of premature project closures with a milestone state machine and PostgreSQL migration; delivered passwordless inspector onboarding passing all 7 acceptance criteria",
     active: true,
   },
   {
@@ -101,7 +101,7 @@ export default function AboutSection() {
               <img
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH}/image.jpg`}
                 alt="Kavya Sridhar"
-                className="w-full h-full object-cover scale-125"
+                className="w-full h-full object-cover"
               />
             </div>
           </motion.div>
