@@ -5,25 +5,39 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 
 const stats = [
-  { number: "1+", label: "Years Experience" },
-  { number: "50M+", label: "Records Processed" },
-  { number: "20+", label: "ETL Pipelines" },
-  { number: "1", label: "IEEE Publication" },
+  { number: "2+", label: "Years Experience" },
+  { number: "50M+", label: "Daily Records Processed" },
+  { number: "30+", label: "Features Shipped" },
+  { number: "1", label: "AWS Certification" },
 ];
 
 const experience = [
+  {
+    year: "2026 - Present",
+    title: "Software Engineer",
+    company: "Dreamline AI",
+    description: "Cut bid lifetime from 4+ months to 48 hours via configurable TTL and PII masking in Supabase; blocked 100% of premature project closures with a milestone-gated state machine and PostgreSQL schema migration",
+    active: true,
+  },
+  {
+    year: "2025 - 2026",
+    title: "Graduate Instructional Assistant",
+    company: "UC San Diego",
+    description: "Decreased manual grading by 65% for 200+ students with a Python autograding pipeline on a Spark cluster; diagnosed failing distributed Spark jobs and cut regrade requests by 30%",
+    active: false,
+  },
   {
     year: "2024 - 2026",
     title: "Master of Science, Data Science",
     company: "UC San Diego",
     description: "GPA: 3.92 | Scalable Data Systems, Recommender Systems, ML, Biomedical NLP, Advanced Text Mining",
-    active: true,
+    active: false,
   },
   {
     year: "2023 - 2024",
     title: "Software Engineer",
     company: "Société Générale Global Solution Centre",
-    description: "Built AML dashboards over 50M+ records, accelerated Spark pipelines by 40%, deployed REST APIs serving 200+ employees",
+    description: "Shipped 30+ features in Java Spring Boot, accelerated AML batch ETL by 40% with Spark, migrated 50M+ records to Palantir OSv2 with zero data loss, and cut deployment errors 35% via Jenkins automation",
     active: false,
   },
   {
@@ -99,20 +113,21 @@ export default function AboutSection() {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <h3 className="text-2xl font-heading font-semibold text-primary mb-4">
-              Ex-Software Engineer and Data Science Grad Student
+              Software Engineer at Dreamline AI
             </h3>
             <p className="text-text-secondary mb-6 leading-relaxed">
-              I&apos;m a Master&apos;s student in Data Science at UC San Diego with a strong
-              foundation in Machine Learning, NLP, Large Language Models, and Algorithm design.
+              I&apos;m a Software Engineer at Dreamline AI in San Jose and a UC San Diego Data
+              Science Master&apos;s graduate. I own code from design through deployment and
+              on-call operations, working across Java, Python, and TypeScript.
             </p>
             <p className="text-text-secondary mb-6 leading-relaxed">
-              Previously, I worked as a Software Engineer at Société Générale, where I optimized
-              data pipelines, built compliance dashboards, and migrated critical datasets handling
-              50M+ transaction records.
+              Previously, I was a Software Engineer at Société Générale, where I shipped scalable
+              Spring Boot microservices and Spark pipelines processing 50M+ daily records, and a
+              Graduate Instructional Assistant at UCSD building Spark-based autograding pipelines.
             </p>
             <p className="text-text-secondary mb-8 leading-relaxed">
-              I&apos;m passionate about leveraging data-driven solutions to drive meaningful impact,
-              with expertise in RAG systems, adversarial ML, and production ETL pipelines.
+              I&apos;m an AWS Certified AI Practitioner who enjoys building fault-tolerant distributed
+              systems at scale, along with RAG systems and GenAI-assisted development.
             </p>
             <a
               href={`${process.env.NEXT_PUBLIC_BASE_PATH}/resume.pdf`}

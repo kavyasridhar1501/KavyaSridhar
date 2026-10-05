@@ -46,7 +46,7 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-xl md:text-2xl text-text-secondary mb-8"
         >
-           Data Science Grad Student and Software Engineer 
+          Software Engineer at Dreamline AI
         </motion.p>
 
         {/* Description */}
@@ -56,9 +56,9 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-text-secondary text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          UCSD Data Science Grad with expertise in Machine Learning, NLP, and
-          Large Language Models. Building data-driven solutions that make an
-          impact.
+          UCSD Data Science Grad and AWS Certified AI Practitioner building
+          scalable, fault-tolerant distributed systems with Java, Python, and
+          TypeScript.
         </motion.p>
 
         {/* Social Links */}

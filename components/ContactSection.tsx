@@ -15,7 +15,7 @@ const contactInfo = [
   {
     icon: FaMapMarkerAlt,
     label: "Location",
-    value: "La Jolla, CA",
+    value: "San Jose, CA",
     href: null,
   },
 ];

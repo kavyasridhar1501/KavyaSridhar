@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Kavya Sridhar | Portfolio",
-  description: "Personal portfolio of Kavya Sridhar - Software Developer & Creative Professional",
+  description: "Personal portfolio of Kavya Sridhar - Software Engineer at Dreamline AI",
   keywords: ["portfolio", "developer", "software engineer", "web development"],
   authors: [{ name: "Kavya Sridhar" }],
 };
