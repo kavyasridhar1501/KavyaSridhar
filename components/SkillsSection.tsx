@@ -7,23 +7,23 @@ import { useRef } from "react";
 const skillCategories = [
   {
     title: "Programming",
-    skills: ["Python", "JavaScript", "TypeScript", "SQL"],
+    skills: ["Python", "Java", "JavaScript", "TypeScript", "SQL", "C/C++", "R"],
   },
   {
     title: "ML & AI",
-    skills: ["PyTorch", "LLMs", "RAG", "FAISS", "LoRA", "Adversarial Training", "Prophet", "Isolation Forest"],
+    skills: ["PyTorch", "LLMs", "LangChain", "RAG", "FAISS", "QLoRA", "Adversarial Training", "Prophet", "Isolation Forest"],
   },
   {
     title: "Data Engineering",
-    skills: ["Apache Spark", "Apache Airflow", "ETL Pipelines", "Palantir Foundry", "dbt"],
+    skills: ["Apache Spark", "Hadoop", "Apache Airflow", "ETL Pipelines", "Palantir Foundry", "dbt"],
   },
   {
-    title: "Web Development",
-    skills: ["Flask", "FastAPI", "Express.js", "React", "Next.js", "Chart.js"],
+    title: "Web & Backend",
+    skills: ["Spring Boot", "Node.js", "Flask", "FastAPI", "Express.js", "React", "Next.js", "Chart.js"],
   },
   {
     title: "Cloud & DevOps",
-    skills: ["AWS S3", "AWS DynamoDB", "Git", "Docker", "CI/CD", "Vercel", "Railway"],
+    skills: ["AWS (S3, EC2, DynamoDB)", "AWS Certified AI Practitioner", "Docker", "Jenkins", "GitHub Actions", "CI/CD", "Git", "Vercel"],
   },
   {
     title: "Databases",

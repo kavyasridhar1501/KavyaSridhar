@@ -38,27 +38,27 @@ const projects = [
     title: "SplitRight",
     subtitle: "Expense Splitting PWA",
     description:
-      "Mobile-first progressive web app for fair expense splitting among college roommates, with debt simplification and group management via invite codes.",
+      "Full-stack, mobile-first PWA for fair expense splitting among college roommates, with debt simplification and group management via invite codes, deployed via Docker on Vercel.",
     highlights: [
-      "Debt simplification algorithm",
+      "90% test coverage across 3 split modes with Jest",
       "PWA with offline support",
       "JWT auth with bcrypt security",
     ],
-    technologies: ["Next.js", "TypeScript", "Node.js", "Express", "PostgreSQL"],
+    technologies: ["Next.js 14", "TypeScript", "Node.js", "REST API", "PostgreSQL", "JWT", "Docker"],
     github: "https://github.com/kavyasridhar1501/SplitRight",
     demo: "https://split-right-ecru.vercel.app",
   },
   {
-    title: "Hemorrhoids RAG Chatbot",
-    subtitle: "RAG-Based Medical Chatbot",
+    title: "HemsHappen",
+    subtitle: "RAG Medical Chatbot",
     description:
-      "Developed a RAG-based medical chatbot using FAISS vector search and Claude Sonnet 4 over curated GI clinical guidelines.",
+      "RAG pipeline using FAISS and Claude Sonnet over curated GI clinical guidelines, validated by gastroenterologists, plus a Med42-8B model fine-tuned via 4-bit QLoRA for red-flag triage.",
     highlights: [
-      "100% clinical safety pass rate",
-      "Outperformed baseline by 42%",
-      "Submitted to DDW 2025",
+      "Validated by gastroenterologists",
+      "+4.2 F1 on red-flag/triage via QLoRA",
+      "95.6% schema validity",
     ],
-    technologies: ["Python", "RAG", "FAISS", "Claude API", "LoRA"],
+    technologies: ["Python", "LangChain", "FAISS", "QLoRA", "SentenceTransformers", "Claude API"],
     github: "https://github.com/kavyasridhar1501/hemorrhoids-rag-chatbot",
   },
   {
