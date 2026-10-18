@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { HiArrowDown } from "react-icons/hi";
 import { asset, canHover } from "./ui";
-import { tracks } from "@/data/beyond";
 
 const socialLinks = [
   { icon: FaGithub, href: "https://github.com/kavyasridhar1501", label: "GitHub" },
@@ -27,7 +26,6 @@ function MaskedLine({ children, delay, className }: { children: React.ReactNode;
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
-  const nowPlaying = tracks[0];
 
   // Gallery spotlight follows the pointer (writes CSS vars, no re-renders)
   const handlePointerMove = (e: React.PointerEvent) => {
@@ -67,8 +65,8 @@ export default function HeroSection() {
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted md:text-xl">
               Software engineer at <span className="text-ink">Dreamline AI</span> building across{" "}
               <span className="text-ink">full-stack</span>, <span className="text-ink">data engineering</span>, and{" "}
-              <span className="text-ink">applied AI/ML</span>. MS in Data Science from UC San Diego. Off the clock:
-              painting, films, and too many playlists.
+              <span className="text-ink">applied AI/ML</span>. MS in Data Science from UC San Diego. Off the clock,
+              I paint.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -96,26 +94,6 @@ export default function HeroSection() {
               </ul>
             </div>
 
-            {nowPlaying && (
-              <a
-                href="#beyond"
-                className="group mt-12 inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-ink"
-              >
-                <span className="flex h-4 items-end gap-[3px]" aria-hidden="true">
-                  {[0, 0.2, 0.4].map((d) => (
-                    <span
-                      key={d}
-                      className="h-full w-[3px] origin-bottom animate-eq bg-accent"
-                      style={{ animationDelay: `${d}s` }}
-                    />
-                  ))}
-                </span>
-                <span className="label">Now playing</span>
-                <span className="link-draw">
-                  {nowPlaying.title} <span className="text-muted">— {nowPlaying.artist}</span>
-                </span>
-              </a>
-            )}
           </div>
         </div>
 

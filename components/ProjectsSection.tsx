@@ -15,12 +15,37 @@ type Project = {
   technologies: string[];
   github?: string;
   demo?: string;
+  paper?: string;
   art: ArtworkVariant;
   /** Optional screenshot in /public; replaces the generated artwork. */
   image?: string;
 };
 
 const projects: Project[] = [
+  {
+    title: "HemsHappen",
+    subtitle: "RAG Medical Chatbot",
+    description:
+      "RAG pipeline using FAISS and Claude Sonnet over curated GI clinical guidelines, validated by gastroenterologists, plus a Med42-8B model fine-tuned via 4-bit QLoRA for red-flag triage.",
+    highlights: [
+      "Validated by gastroenterologists",
+      "+4.2 F1 on red-flag/triage via QLoRA",
+      "95.6% schema validity",
+    ],
+    technologies: ["Python", "LangChain", "FAISS", "QLoRA", "SentenceTransformers", "Claude API"],
+    github: "https://github.com/kavyasridhar1501/hemorrhoids-rag-chatbot",
+    art: "fields",
+  },
+  {
+    title: "DeepFool Defense",
+    subtitle: "IEEE Published Research",
+    description:
+      "Improved ResNet50 robustness against adversarial attacks by 43% using adversarial training techniques.",
+    highlights: ["IEEE WiSPNET 2023", "43% robustness improvement", "Skater interpretations"],
+    technologies: ["PyTorch", "Adversarial ML", "Computer Vision"],
+    paper: "https://ieeexplore.ieee.org/document/10134485",
+    art: "pixels",
+  },
   {
     title: "EcoNode",
     subtitle: "MLOps Renewable Energy Forecasting",
@@ -67,20 +92,6 @@ const projects: Project[] = [
     art: "split",
   },
   {
-    title: "HemsHappen",
-    subtitle: "RAG Medical Chatbot",
-    description:
-      "RAG pipeline using FAISS and Claude Sonnet over curated GI clinical guidelines, validated by gastroenterologists, plus a Med42-8B model fine-tuned via 4-bit QLoRA for red-flag triage.",
-    highlights: [
-      "Validated by gastroenterologists",
-      "+4.2 F1 on red-flag/triage via QLoRA",
-      "95.6% schema validity",
-    ],
-    technologies: ["Python", "LangChain", "FAISS", "QLoRA", "SentenceTransformers", "Claude API"],
-    github: "https://github.com/kavyasridhar1501/hemorrhoids-rag-chatbot",
-    art: "fields",
-  },
-  {
     title: "LegalInsight",
     subtitle: "Self-RAG Legal Contract Analyzer",
     description:
@@ -89,15 +100,6 @@ const projects: Project[] = [
     technologies: ["Python", "Flask", "Self-RAG", "FAISS"],
     github: "https://github.com/kavyasridhar1501/LegalInsight",
     art: "lines",
-  },
-  {
-    title: "DeepFool Defense",
-    subtitle: "IEEE Published Research",
-    description:
-      "Improved ResNet50 robustness against adversarial attacks by 43% using adversarial training techniques.",
-    highlights: ["IEEE WiSPNET 2023", "43% robustness improvement", "Skater interpretations"],
-    technologies: ["PyTorch", "Adversarial ML", "Computer Vision"],
-    art: "pixels",
   },
 ];
 
@@ -175,6 +177,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               aria-label={`${project.title} source code on GitHub`}
             >
               <FaGithub aria-hidden="true" /> Code
+            </a>
+          )}
+          {project.paper && (
+            <a
+              href={project.paper}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-draw inline-flex items-center gap-1 text-ink"
+              aria-label={`${project.title} paper on IEEE Xplore`}
+            >
+              Paper <HiArrowUpRight aria-hidden="true" />
             </a>
           )}
           {project.demo && (

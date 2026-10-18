@@ -39,18 +39,11 @@ const config: Config = {
         "frame-lift": "0 2px 4px rgba(27,26,24,0.08), 0 28px 60px -20px rgba(27,26,24,0.4)",
       },
       keyframes: {
-        spin: { to: { transform: "rotate(360deg)" } },
         rise: { from: { transform: "translateY(105%)" }, to: { transform: "translateY(0)" } },
         lift: { from: { transform: "translateY(18px)" }, to: { transform: "translateY(0)" } },
         fade: { from: { opacity: "0" }, to: { opacity: "1" } },
-        eq: {
-          "0%, 100%": { transform: "scaleY(0.3)" },
-          "50%": { transform: "scaleY(1)" },
-        },
       },
       animation: {
-        "spin-slow": "spin 6s linear infinite",
-        eq: "eq 1s ease-in-out infinite",
         // Hero intro runs in CSS so it starts on first paint, before hydration (keeps LCP fast)
         rise: "rise 1s cubic-bezier(0.22,1,0.36,1) both",
         lift: "lift 0.9s cubic-bezier(0.22,1,0.36,1) both",
