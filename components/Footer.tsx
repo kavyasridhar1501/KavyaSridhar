@@ -7,32 +7,11 @@ const socialLinks = [
   { icon: FaLinkedin, href: "https://linkedin.com/in/kavyasridhar", label: "LinkedIn" },
 ];
 
-// End-credits roll
-const credits = [
-  { role: "Engineering", name: "Kavya Sridhar" },
-  { role: "Design & Curation", name: "Kavya Sridhar" },
-  { role: "Paintings", name: "Kavya Sridhar" },
-  { role: "Soundtrack", name: "See the listening room" },
-];
-
 export default function Footer() {
   return (
     <footer className="bg-night px-5 py-20 text-night-ink sm:px-8">
       <div className="mx-auto max-w-3xl text-center">
-        <p className="label text-night-muted">Fin.</p>
-        <dl className="mx-auto mt-10 max-w-md space-y-3">
-          {credits.map((c) => (
-            <div key={c.role} className="flex items-baseline gap-3 text-sm">
-              <dt className="label flex flex-1 items-baseline gap-3 text-left text-night-muted">
-                {c.role}
-                <span aria-hidden="true" className="flex-1 border-b border-dotted border-night-line" />
-              </dt>
-              <dd className="shrink-0 font-serif text-lg italic">{c.name}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <ul className="mt-14 flex justify-center gap-3">
+        <ul className="flex justify-center gap-3">
           {socialLinks.map((social) => (
             <li key={social.label}>
               <a

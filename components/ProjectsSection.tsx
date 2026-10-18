@@ -22,6 +22,20 @@ type Project = {
 
 const projects: Project[] = [
   {
+    title: "HemsHappen",
+    subtitle: "RAG Medical Chatbot",
+    description:
+      "RAG pipeline using FAISS and Claude Sonnet over curated GI clinical guidelines, validated by gastroenterologists, plus a Med42-8B model fine-tuned via 4-bit QLoRA for red-flag triage.",
+    highlights: [
+      "Validated by gastroenterologists",
+      "+4.2 F1 on red-flag/triage via QLoRA",
+      "95.6% schema validity",
+    ],
+    technologies: ["Python", "LangChain", "FAISS", "QLoRA", "SentenceTransformers", "Claude API"],
+    github: "https://github.com/kavyasridhar1501/hemorrhoids-rag-chatbot",
+    art: "fields",
+  },
+  {
     title: "EcoNode",
     subtitle: "MLOps Renewable Energy Forecasting",
     description:
@@ -65,20 +79,6 @@ const projects: Project[] = [
     github: "https://github.com/kavyasridhar1501/SplitRight",
     demo: "https://split-right-ecru.vercel.app",
     art: "split",
-  },
-  {
-    title: "HemsHappen",
-    subtitle: "RAG Medical Chatbot",
-    description:
-      "RAG pipeline using FAISS and Claude Sonnet over curated GI clinical guidelines, validated by gastroenterologists, plus a Med42-8B model fine-tuned via 4-bit QLoRA for red-flag triage.",
-    highlights: [
-      "Validated by gastroenterologists",
-      "+4.2 F1 on red-flag/triage via QLoRA",
-      "95.6% schema validity",
-    ],
-    technologies: ["Python", "LangChain", "FAISS", "QLoRA", "SentenceTransformers", "Claude API"],
-    github: "https://github.com/kavyasridhar1501/hemorrhoids-rag-chatbot",
-    art: "fields",
   },
   {
     title: "LegalInsight",
