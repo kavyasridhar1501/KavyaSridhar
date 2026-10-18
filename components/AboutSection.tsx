@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { animate, useInView, useReducedMotion } from "framer-motion";
+import { Reveal, SectionHeading, asset } from "./ui";
 
 const stats = [
   { number: "2+", label: "Years Experience" },
@@ -11,185 +11,89 @@ const stats = [
   { number: "1", label: "AWS Certification" },
 ];
 
-const experience = [
-  {
-    year: "2026 - Present",
-    title: "Software Engineer",
-    company: "Dreamline AI",
-    description: "Cut bid lifetime from 4+ months to 48 hours via configurable TTL and PII masking in Supabase; blocked 100% of premature project closures with a milestone state machine and PostgreSQL migration; delivered passwordless inspector onboarding passing all 7 acceptance criteria",
-    active: true,
-  },
-  {
-    year: "2025 - 2026",
-    title: "Graduate Instructional Assistant",
-    company: "UC San Diego",
-    description: "Decreased manual grading by 65% for 200+ students with a Python autograding pipeline on a Spark cluster; diagnosed failing distributed Spark jobs and cut regrade requests by 30%",
-    active: false,
-  },
-  {
-    year: "2024 - 2026",
-    title: "Master of Science, Data Science",
-    company: "UC San Diego",
-    description: "GPA: 3.92 | Scalable Data Systems, Recommender Systems, ML, Biomedical NLP, Advanced Text Mining",
-    active: false,
-  },
-  {
-    year: "2023 - 2024",
-    title: "Software Engineer",
-    company: "Société Générale Global Solution Centre",
-    description: "Shipped 30+ features in Java Spring Boot, accelerated AML batch ETL by 40% with Spark, migrated 50M+ records to Palantir OSv2 with zero data loss, and cut deployment errors 35% via Jenkins automation",
-    active: false,
-  },
-  {
-    year: "2019 - 2023",
-    title: "B.E. Computer Science",
-    company: "Anna University",
-    description: "GPA: 3.98 | DSA, Distributed Systems, DBMS, OS, Software Engineering, IEEE published research",
-    active: false,
-  },
-];
+/** Counts a stat like "5M+" up from zero the first time it scrolls into view. */
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const reduce = useReducedMotion();
+  const [, num, suffix] = value.match(/^(\d+)(.*)$/) ?? [null, value, ""];
+  const target = Number(num);
+  const [display, setDisplay] = useState(reduce || Number.isNaN(target) ? num : "0");
 
-export default function AboutSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  useEffect(() => {
+    if (!isInView || reduce || Number.isNaN(target)) return;
+    const controls = animate(0, target, {
+      duration: 1.4,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setDisplay(String(Math.round(v))),
+    });
+    return () => controls.stop();
+  }, [isInView, reduce, target]);
 
   return (
-    <section id="about" className="section bg-softGray" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={isInView ? { y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
-            About Me
-          </h2>
-          <div className="w-16 h-1 bg-primary mx-auto" />
-        </motion.div>
+    <span ref={ref}>
+      <span className="sr-only">{value}</span>
+      <span aria-hidden="true">
+        {display}
+        <span className="text-accent">{suffix}</span>
+      </span>
+    </span>
+  );
+}
 
-        {/* Stats Section */}
-        <motion.div
-          initial={{ y: 30 }}
-          animate={isInView ? { y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
-        >
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white rounded-2xl p-6 text-center shadow-sm">
-              <p className="text-4xl md:text-5xl font-bold text-primary mb-2">
-                {stat.number}
-              </p>
-              <p className="text-text-secondary text-sm uppercase tracking-wider">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </motion.div>
+export default function AboutSection() {
+  return (
+    <section id="about" className="section">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading room="01" eyebrow="Curator's note" title="About" />
 
-        {/* About Content */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Image/Avatar */}
-          <motion.div
-            initial={{ x: -50 }}
-            animate={isInView ? { x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="relative"
-          >
-            <div className="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-2xl overflow-hidden shadow-lg">
-              <img
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH}/image.jpg`}
-                alt="Kavya Sridhar"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
+        <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr] lg:gap-24">
+          <Reveal>
+            <p className="font-serif text-3xl leading-snug text-ink md:text-[2.6rem] md:leading-[1.2]">
+              I build software that holds up in production: the APIs, the data pipelines behind them, and the
+              models on top. <span className="italic text-muted">I treat a codebase the way I treat a canvas:
+              start with structure, then work in the detail.</span>
+            </p>
+          </Reveal>
 
-          {/* Text Content */}
-          <motion.div
-            initial={{ x: 50 }}
-            animate={isInView ? { x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <h3 className="text-2xl font-heading font-semibold text-primary mb-4">
-              Software Engineer at Dreamline AI
-            </h3>
-            <p className="text-text-secondary mb-6 leading-relaxed">
-              I&apos;m a Software Engineer at Dreamline AI in San Jose and a UC San Diego Data
-              Science Master&apos;s graduate. I own code from design through deployment and
+          <Reveal delay={0.15} className="space-y-5 text-[1.05rem] leading-relaxed text-muted">
+            <p>
+              I&apos;m a Software Engineer at <span className="text-ink">Dreamline AI</span> in San Jose and a
+              UC San Diego Data Science Master&apos;s graduate. I own code from design through deployment and
               on-call operations, working across Java, Python, and TypeScript.
             </p>
-            <p className="text-text-secondary mb-6 leading-relaxed">
-              Previously, I was a Software Engineer at Société Générale, where I shipped scalable
-              Spring Boot microservices and Spark pipelines processing 50M+ daily records, and a
+            <p>
+              Previously, I was a Software Engineer at <span className="text-ink">Société Générale</span>, where I
+              shipped scalable Spring Boot microservices and Spark pipelines processing 50M+ daily records, and a
               Graduate Instructional Assistant at UCSD building Spark-based autograding pipelines.
             </p>
-            <p className="text-text-secondary mb-8 leading-relaxed">
-              I&apos;m an AWS Certified AI Practitioner who enjoys building fault-tolerant distributed
-              systems at scale, along with RAG systems and GenAI-assisted development.
+            <p>
+              I&apos;m an AWS Certified AI Practitioner who enjoys building fault-tolerant distributed systems at
+              scale, along with RAG systems and GenAI-assisted development.
             </p>
-            <a
-              href={`${process.env.NEXT_PUBLIC_BASE_PATH}/resume.pdf`}
-              download
-              className="inline-block bg-primary text-white font-semibold px-8 py-3 rounded-full hover:bg-gray-800 transition-all duration-300"
-            >
-              Download Resume
+            <a href={asset("/resume.pdf")} download className="btn-solid !mt-8">
+              <span>Download Resume</span>
             </a>
-          </motion.div>
+          </Reveal>
         </div>
 
-        {/* Experience Timeline */}
-        <motion.div
-          initial={{ y: 30 }}
-          animate={isInView ? { y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <h3 className="text-2xl font-heading font-semibold text-primary text-center mb-12">
-            Experience & Education
-          </h3>
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-0.5 h-full bg-gray-200" />
-
-            {/* Timeline Items */}
-            <div className="space-y-12">
-              {experience.map((item, index) => (
-                <div
-                  key={index}
-                  className={`relative flex flex-col md:flex-row ${
-                    index % 2 === 0 ? "md:flex-row-reverse" : ""
-                  }`}
-                >
-                  {/* Dot */}
-                  <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-300 bg-white z-10">
-                    {item.active && (
-                      <div className="absolute inset-0 bg-primary rounded-full" />
-                    )}
-                  </div>
-
-                  {/* Content */}
-                  <div className={`ml-8 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
-                    <div className="bg-white p-6 rounded-xl shadow-sm">
-                      <span className="text-sm text-text-secondary font-medium">
-                        {item.year}
-                      </span>
-                      <h4 className="text-lg font-semibold text-primary mt-1">
-                        {item.title}
-                      </h4>
-                      <p className="text-primary font-medium text-sm">
-                        {item.company}
-                      </p>
-                      <p className="text-text-secondary text-sm mt-2">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+        {/* Catalogue figures */}
+        <dl className="mt-20 grid grid-cols-2 border-t border-line md:grid-cols-4">
+          {stats.map((stat, i) => (
+            <Reveal
+              key={stat.label}
+              delay={i * 0.08}
+              className={`flex flex-col border-b border-line py-8 md:border-b-0 md:py-10 ${
+                i % 2 === 1 ? "pl-6 md:pl-8" : "md:pl-8"
+              } ${i > 0 ? "md:border-l" : "md:!pl-0"} ${i % 2 === 1 ? "border-l md:border-l" : ""}`}
+            >
+              <dt className="label order-2 mt-3 text-muted">{stat.label}</dt>
+              <dd className="order-1 font-serif text-5xl text-ink md:text-6xl">
+                <CountUp value={stat.number} />
+              </dd>
+            </Reveal>
+          ))}
+        </dl>
       </div>
     </section>
   );

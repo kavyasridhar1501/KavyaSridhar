@@ -1,8 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { Reveal, SectionHeading } from "./ui";
 
 const skillCategories = [
   {
@@ -31,55 +29,49 @@ const skillCategories = [
   },
 ];
 
+// A pigment per category, used for the swatch and hover states
+const pigments = ["bg-vermilion", "bg-cobalt", "bg-ochre", "bg-sage", "bg-blush", "bg-ink"];
+
 export default function SkillsSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="skills" className="section bg-white" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={isInView ? { y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
-            Skills & Expertise
-          </h2>
-          <div className="w-16 h-1 bg-primary mx-auto mb-6" />
-          <p className="text-text-secondary max-w-2xl mx-auto">
-            Technologies and tools I use to build data-driven solutions
-          </p>
-        </motion.div>
+    <section id="skills" className="section border-t border-line bg-paper">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading
+          room="04"
+          eyebrow="Materials & techniques"
+          title="Skills"
+          intro="The palette I work with day to day."
+        />
 
-        {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <motion.div
+        <dl className="divide-y divide-line border-y border-line">
+          {skillCategories.map((category, i) => (
+            <Reveal
               key={category.title}
-              initial={{ y: 30 }}
-              animate={isInView ? { y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-softGray p-6 rounded-xl"
+              delay={i * 0.04}
+              className="group grid gap-4 py-7 md:grid-cols-[16rem_1fr] md:gap-10"
             >
-              <h3 className="text-lg font-heading font-semibold text-primary mb-4">
-                {category.title}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-4 py-2 bg-white text-text-secondary text-sm rounded-full border border-gray-200 hover:border-primary hover:text-primary transition-all duration-300"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+              <dt className="flex items-center gap-4">
+                <span
+                  aria-hidden="true"
+                  className={`h-8 w-8 shrink-0 rounded-full ${pigments[i]} transition-transform duration-500 group-hover:scale-110 [border-radius:58%_42%_55%_45%/45%_55%_45%_55%]`}
+                />
+                <span className="font-serif text-3xl text-ink">{category.title}</span>
+              </dt>
+              <dd>
+                <ul className="flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className="border border-line px-3.5 py-1.5 text-sm text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-wall"
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </Reveal>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   );
