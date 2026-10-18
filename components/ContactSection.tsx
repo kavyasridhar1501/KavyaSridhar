@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FaEnvelope, FaMapMarkerAlt, FaGithub, FaLinkedin } from "react-icons/fa";
+import { HiArrowRight } from "react-icons/hi2";
+import { Reveal, SectionHeading } from "./ui";
 
 const contactInfo = [
   {
@@ -25,9 +25,12 @@ const socialLinks = [
   { icon: FaLinkedin, href: "https://linkedin.com/in/kavyasridhar", label: "LinkedIn" },
 ];
 
+const fieldClass =
+  "peer w-full border-0 border-b border-line bg-transparent px-0 pb-2 pt-6 text-lg text-ink placeholder-transparent outline-none transition-colors focus:border-accent focus:ring-0";
+const labelClass =
+  "pointer-events-none absolute left-0 top-6 origin-left text-muted transition-all duration-300 peer-focus:top-0 peer-focus:text-xs peer-focus:text-accent peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs";
+
 export default function ContactSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -41,9 +44,7 @@ export default function ContactSection() {
     window.location.href = `mailto:kavyasridhar2001@gmail.com?subject=${subject}&body=${body}`;
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -51,90 +52,65 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="section bg-white" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={isInView ? { y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
-            Get In Touch
-          </h2>
-          <div className="w-16 h-1 bg-primary mx-auto mb-6" />
-          <p className="text-text-secondary max-w-2xl mx-auto">
-            Interested in collaboration or have questions? Feel free to reach out!
-          </p>
-        </motion.div>
+    <section id="contact" className="section">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading
+          room="06"
+          eyebrow="Visitor's book"
+          title={
+            <>
+              Let&apos;s <span className="italic">talk</span>
+            </>
+          }
+        />
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ x: -50 }}
-            animate={isInView ? { x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h3 className="text-xl font-heading font-semibold text-primary mb-6">
-              Let&apos;s Connect
-            </h3>
-            <p className="text-text-secondary mb-8 leading-relaxed">
-              I&apos;m always open to discussing new research opportunities, collaborations,
-              or interesting data science and ML projects.
+        <div className="grid gap-16 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
+          <Reveal>
+            <p className="max-w-md text-lg leading-relaxed text-muted">
+              I&apos;m always open to discussing new roles, collaborations, or interesting full-stack, data, and ML
+              projects. Leave a note in the guestbook, or reach me directly.
             </p>
 
-            <div className="space-y-4 mb-8">
+            <ul className="mt-10 space-y-6">
               {contactInfo.map((info) => (
-                <div key={info.label} className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-softGray rounded-full flex items-center justify-center">
-                    <info.icon className="text-primary" />
-                  </div>
+                <li key={info.label} className="flex items-center gap-4">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink">
+                    <info.icon aria-hidden="true" />
+                  </span>
                   <div>
-                    <p className="text-text-secondary text-sm">{info.label}</p>
+                    <p className="label text-muted">{info.label}</p>
                     {info.href ? (
-                      <a
-                        href={info.href}
-                        className="text-primary hover:underline"
-                      >
+                      <a href={info.href} className="link-draw text-lg text-ink">
                         {info.value}
                       </a>
                     ) : (
-                      <p className="text-primary">{info.value}</p>
+                      <p className="text-lg text-ink">{info.value}</p>
                     )}
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
 
-            {/* Social Links */}
-            <div className="flex gap-3">
+            <ul className="mt-10 flex gap-3">
               {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary transition-all duration-300"
-                  aria-label={social.label}
-                >
-                  <social.icon size={18} />
-                </a>
+                <li key={social.label}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 border border-line px-4 py-2 text-sm text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-ink"
+                  >
+                    <social.icon aria-hidden="true" /> {social.label}
+                  </a>
+                </li>
               ))}
-            </div>
-          </motion.div>
+            </ul>
+          </Reveal>
 
-          {/* Contact Form */}
-          <motion.div
-            initial={{ x: 50 }}
-            animate={isInView ? { x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label htmlFor="name" className="block text-text-secondary text-sm mb-2">
-                  Your Name <span className="text-red-500">*</span>
-                </label>
+          <Reveal delay={0.1}>
+            <form onSubmit={handleSubmit} className="space-y-8 bg-paper p-6 shadow-frame sm:p-10">
+              <p className="label text-muted">Guestbook entry</p>
+              <div className="relative">
                 <input
                   type="text"
                   id="name"
@@ -142,14 +118,15 @@ export default function ContactSection() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full border border-gray-200 focus:border-primary rounded-lg px-4 py-3 text-primary outline-none transition-colors duration-300"
-                  placeholder="John Doe"
+                  autoComplete="name"
+                  placeholder="Your name"
+                  className={fieldClass}
                 />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-text-secondary text-sm mb-2">
-                  Your Email <span className="text-red-500">*</span>
+                <label htmlFor="name" className={labelClass}>
+                  Your name
                 </label>
+              </div>
+              <div className="relative">
                 <input
                   type="email"
                   id="email"
@@ -157,33 +134,35 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full border border-gray-200 focus:border-primary rounded-lg px-4 py-3 text-primary outline-none transition-colors duration-300"
-                  placeholder="john@example.com"
+                  autoComplete="email"
+                  placeholder="Your email"
+                  className={fieldClass}
                 />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-text-secondary text-sm mb-2">
-                  Your Message <span className="text-red-500">*</span>
+                <label htmlFor="email" className={labelClass}>
+                  Your email
                 </label>
+              </div>
+              <div className="relative">
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={5}
-                  className="w-full border border-gray-200 focus:border-primary rounded-lg px-4 py-3 text-primary outline-none transition-colors duration-300 resize-none"
-                  placeholder="Tell me about your project..."
+                  rows={4}
+                  placeholder="Your message"
+                  className={`${fieldClass} resize-none`}
                 />
+                <label htmlFor="message" className={labelClass}>
+                  Your message
+                </label>
               </div>
-              <button
-                type="submit"
-                className="w-full bg-primary text-white font-semibold px-8 py-3 rounded-full hover:bg-gray-800 transition-all duration-300"
-              >
-                Send Message
+              <button type="submit" className="btn-solid group w-full sm:w-auto">
+                <span>Sign the guestbook</span>
+                <HiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </button>
             </form>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,11 +1,26 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { useReducedMotion } from "framer-motion";
+import { FaGithub, FaArrowRight } from "react-icons/fa";
+import { HiArrowUpRight } from "react-icons/hi2";
+import Artwork, { type ArtworkVariant } from "./Artwork";
+import { Reveal, SectionHeading, asset, canHover } from "./ui";
 
-const projects = [
+type Project = {
+  title: string;
+  subtitle: string;
+  description: string;
+  highlights: string[];
+  technologies: string[];
+  github?: string;
+  demo?: string;
+  art: ArtworkVariant;
+  /** Optional screenshot in /public; replaces the generated artwork. */
+  image?: string;
+};
+
+const projects: Project[] = [
   {
     title: "EcoNode",
     subtitle: "MLOps Renewable Energy Forecasting",
@@ -19,6 +34,7 @@ const projects = [
     technologies: ["Python", "Prophet", "Supabase", "GitHub Actions", "Chart.js", "EIA API"],
     github: "https://github.com/kavyasridhar1501/EcoNode",
     demo: "https://kavyasridhar1501.github.io/EcoNode/",
+    art: "waves",
   },
   {
     title: "SmartSpend360",
@@ -33,6 +49,7 @@ const projects = [
     technologies: ["Python", "FastAPI", "React", "TypeScript", "Apache Airflow", "AWS S3", "PySpark"],
     github: "https://github.com/kavyasridhar1501/SmartSpend360",
     demo: "https://smartspend360-app-pink.vercel.app/dashboard",
+    art: "grid",
   },
   {
     title: "SplitRight",
@@ -47,6 +64,7 @@ const projects = [
     technologies: ["Next.js 14", "TypeScript", "Node.js", "REST API", "PostgreSQL", "JWT", "Docker"],
     github: "https://github.com/kavyasridhar1501/SplitRight",
     demo: "https://split-right-ecru.vercel.app",
+    art: "split",
   },
   {
     title: "HemsHappen",
@@ -60,142 +78,170 @@ const projects = [
     ],
     technologies: ["Python", "LangChain", "FAISS", "QLoRA", "SentenceTransformers", "Claude API"],
     github: "https://github.com/kavyasridhar1501/hemorrhoids-rag-chatbot",
+    art: "fields",
   },
   {
     title: "LegalInsight",
     subtitle: "Self-RAG Legal Contract Analyzer",
     description:
       "Legal contract analysis tool using Self-RAG with EigenScore validation for hallucination detection.",
-    highlights: [
-      "74.65% semantic consistency",
-      "4.26x faster review time",
-      "Multiple LLM support",
-    ],
+    highlights: ["74.65% semantic consistency", "4.26x faster review time", "Multiple LLM support"],
     technologies: ["Python", "Flask", "Self-RAG", "FAISS"],
-    github: "#",
+    github: "https://github.com/kavyasridhar1501/LegalInsight",
+    art: "lines",
   },
   {
     title: "DeepFool Defense",
     subtitle: "IEEE Published Research",
     description:
       "Improved ResNet50 robustness against adversarial attacks by 43% using adversarial training techniques.",
-    highlights: [
-      "IEEE WiSPNET 2023",
-      "43% robustness improvement",
-      "Skater interpretations",
-    ],
+    highlights: ["IEEE WiSPNET 2023", "43% robustness improvement", "Skater interpretations"],
     technologies: ["PyTorch", "Adversarial ML", "Computer Vision"],
-    github: "#",
+    art: "pixels",
   },
 ];
 
-export default function ProjectsSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+
+  // Gentle 3D tilt + a light glare that follows the pointer
+  const handleMove = (e: React.PointerEvent) => {
+    const el = frameRef.current;
+    if (!el || reduce || !canHover()) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    el.style.setProperty("--ry", `${(px - 0.5) * 7}deg`);
+    el.style.setProperty("--rx", `${(0.5 - py) * 7}deg`);
+    el.style.setProperty("--gx", `${px * 100}%`);
+    el.style.setProperty("--gy", `${py * 100}%`);
+  };
+  const handleLeave = () => {
+    frameRef.current?.style.setProperty("--rx", "0deg");
+    frameRef.current?.style.setProperty("--ry", "0deg");
+  };
+
+  const catNo = String(index + 1).padStart(2, "0");
 
   return (
-    <section id="projects" className="section bg-softGray" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={isInView ? { y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
-            Latest Work
-          </h2>
-          <div className="w-16 h-1 bg-primary mx-auto mb-6" />
-          <p className="text-text-secondary max-w-2xl mx-auto">
-            A showcase of my recent projects in ML, NLP, and data science
-          </p>
-        </motion.div>
+    <Reveal as="article" delay={(index % 2) * 0.12} className="group">
+      <div
+        ref={frameRef}
+        onPointerMove={handleMove}
+        onPointerLeave={handleLeave}
+        className="relative bg-paper p-3 shadow-frame transition-[transform,box-shadow] duration-500 ease-out [transform:perspective(1000px)_rotateX(var(--rx,0deg))_rotateY(var(--ry,0deg))] group-hover:shadow-frame-lift sm:p-4"
+      >
+        <div className="relative aspect-[4/3] overflow-hidden bg-line">
+          {project.image ? (
+            <img
+              src={asset(project.image)}
+              alt=""
+              loading="lazy"
+              className="h-full w-full object-cover [@media(hover:hover)]:grayscale-[0.85] transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
+            />
+          ) : (
+            <Artwork
+              variant={project.art}
+              className="h-full w-full [@media(hover:hover)]:grayscale-[0.85] transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale-0 group-focus-within:grayscale-0"
+            />
+          )}
+          {/* Glare */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            style={{
+              background:
+                "radial-gradient(400px circle at var(--gx,50%) var(--gy,50%), rgba(255,255,255,0.35), transparent 55%)",
+            }}
+          />
+          <span className="label absolute left-3 top-3 bg-paper/90 px-2 py-1 text-ink">Cat. {catNo}</span>
+        </div>
+      </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ y: 30 }}
-              animate={isInView ? { y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+      {/* Wall label */}
+      <div className="mt-6 grid gap-x-8 sm:grid-cols-[1fr_auto]">
+        <div>
+          <h3 className="font-serif text-4xl leading-none text-ink">{project.title}</h3>
+          <p className="mt-2 text-sm font-medium uppercase tracking-wide text-accent">{project.subtitle}</p>
+        </div>
+        <div className="mt-4 flex gap-5 text-sm sm:mt-1">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-draw inline-flex items-center gap-1.5 text-ink"
+              aria-label={`${project.title} source code on GitHub`}
             >
-              {/* Project Image Placeholder */}
-              <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                <FaGithub className="text-6xl text-gray-400" />
-              </div>
+              <FaGithub aria-hidden="true" /> Code
+            </a>
+          )}
+          {project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-draw inline-flex items-center gap-1 text-ink"
+              aria-label={`${project.title} live demo`}
+            >
+              Live demo <HiArrowUpRight aria-hidden="true" />
+            </a>
+          )}
+        </div>
+      </div>
+      <p className="mt-4 leading-relaxed text-muted">{project.description}</p>
+      <ul className="mt-4 space-y-1.5 text-sm text-ink">
+        {project.highlights.map((h) => (
+          <li key={h} className="flex gap-3">
+            <span className="mt-[0.6em] h-px w-3 shrink-0 bg-accent" aria-hidden="true" />
+            {h}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-5 border-t border-line pt-4 text-sm text-muted">
+        <span className="label mr-2 text-ink">Medium</span>
+        {project.technologies.join(", ")}
+      </p>
+    </Reveal>
+  );
+}
 
-              {/* Project Info */}
-              <div className="p-6">
-                <h3 className="text-lg font-heading font-semibold text-primary mb-1">
-                  {project.title}
-                </h3>
-                <p className="text-text-secondary text-sm mb-3">
-                  {project.subtitle}
-                </p>
-                <p className="text-text-secondary text-sm mb-4 leading-relaxed">
-                  {project.description}
-                </p>
+export default function ProjectsSection() {
+  return (
+    <section id="work" className="section">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading
+          room="03"
+          eyebrow="The permanent collection"
+          title={
+            <>
+              Selected <span className="italic">Work</span>
+            </>
+          }
+          intro="Projects across full-stack, data engineering, and applied AI/ML. Hover a piece to bring it into color."
+        />
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-xs px-3 py-1 bg-softGray text-text-secondary rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex gap-4 pt-4 border-t border-gray-100">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-text-secondary hover:text-primary transition-colors duration-300 text-sm"
-                  >
-                    <FaGithub />
-                    View Code
-                  </a>
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-text-secondary hover:text-primary transition-colors duration-300 text-sm"
-                    >
-                      <FaExternalLinkAlt />
-                      Live Demo
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
+        <div className="grid gap-x-12 gap-y-20 md:grid-cols-2 lg:gap-x-20">
+          {projects.map((project, index) => (
+            <div key={project.title} className={index % 2 === 1 ? "md:mt-24" : ""}>
+              <ProjectCard project={project} index={index} />
+            </div>
           ))}
         </div>
 
-        {/* GitHub Link */}
-        <motion.div
-          initial={{ y: 20 }}
-          animate={isInView ? { y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-12"
-        >
+        <Reveal className="mt-24 text-center">
           <a
             href="https://github.com/kavyasridhar1501"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border-2 border-primary text-primary font-semibold px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300"
+            className="btn-ghost group"
           >
-            <FaGithub />
-            View More on GitHub
+            <FaGithub aria-hidden="true" />
+            See the full archive on GitHub
+            <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
           </a>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );
