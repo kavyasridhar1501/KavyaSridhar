@@ -66,7 +66,7 @@ export default function HeroSection() {
               Software engineer at <span className="text-ink">Dreamline AI</span> building across{" "}
               <span className="text-ink">full-stack</span>, <span className="text-ink">data engineering</span>, and{" "}
               <span className="text-ink">applied AI/ML</span>. MS in Data Science from UC San Diego. Off the clock,
-              I paint.
+              I paint and crochet.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">

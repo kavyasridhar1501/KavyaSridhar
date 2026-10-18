@@ -1,22 +1,24 @@
 /**
- * Content for the "Beyond Work" section.
+ * Content for the "Beyond Work" section: paintings and crochet.
  *
- * Everything here is a placeholder. Put image files in /public/paintings/ and set `src`
- * to e.g. "/paintings/sunset.jpg". Leave `src` empty to show a blank canvas placeholder.
+ * Put image files in /public/gallery/ and set `src` to e.g. "/gallery/koi.jpg".
+ * `width` / `height` are the image's pixel size, used to reserve the right shape
+ * before it loads. Leave `src` empty to show a blank canvas placeholder.
  */
 
-export type Painting = {
+export type Piece = {
   title: string;
-  year: string;
   medium: string;
+  year?: string;
   size?: string;
   src?: string;
+  width?: number;
+  height?: number;
 };
 
-export const paintings: Painting[] = [
-  { title: "Untitled No. 1", year: "2025", medium: "Acrylic on canvas", size: "16 × 20 in" },
-  { title: "Untitled No. 2", year: "2025", medium: "Watercolor on paper", size: "9 × 12 in" },
-  { title: "Untitled No. 3", year: "2024", medium: "Oil on canvas", size: "18 × 24 in" },
-  { title: "Untitled No. 4", year: "2024", medium: "Gouache on paper", size: "8 × 10 in" },
-  { title: "Untitled No. 5", year: "2023", medium: "Acrylic on board", size: "12 × 12 in" },
+export const pieces: Piece[] = [
+  { title: "Koi", medium: "Painting", src: "/gallery/koi.jpg", width: 995, height: 655 },
+  { title: "Forest Path", medium: "Painting", src: "/gallery/forest.jpg", width: 677, height: 1032 },
+  { title: "Curious Giraffe", medium: "Painting", year: "2021", src: "/gallery/giraffe.jpg", width: 687, height: 1003 },
+  { title: "Bumblebees", medium: "Crochet", src: "/gallery/crochet-bees.jpg", width: 1400, height: 1050 },
 ];
